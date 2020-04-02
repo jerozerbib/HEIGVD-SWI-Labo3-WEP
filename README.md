@@ -111,6 +111,11 @@ Dans cette partie, vous allez enrichir votre script développé dans la partie p
 - Pour un test encore plus intéressant (optionnel), vous pouvez utiliser un AP (disponible sur demande) et envoyer vos fragments. Pour que l’AP accepte vous données injectées, il faudra faire une « fake authentication » que vous pouvez faire avec `aireplay-ng`
 - Si l’AP accepte vos fragments, il les recomposera et les retransmettra en une seule trame non-fragmentée !
 
+Nous pouvons voir dans le terminal de gauche les textes en clair et dans la fenêtre wireshark sur la droite les textes dechiffrés.
+![](assets/Ex3_1.png)
+![](assets/Ex3_2.png)
+![](assets/Ex3_3.png)
+
 ## Livrables
 
 Un fork du repo original . Puis, un Pull Request contenant :
