@@ -8,6 +8,7 @@ from scapy.all import *
 import binascii
 from rc4 import RC4
 import argparse
+import zlib
 
 
 parser = argparse.ArgumentParser()
@@ -28,16 +29,13 @@ print(key)
 
 
 arp = rdpcap('arp.cap')[0]
-arp.show()
-arp.wepdata = ""
-arp.show()
 
 # The message that I want to encrypt
 message = args.message.encode()
 
 
 # ICV
-icv = binascii.crc32(message)
+icv = zlib.crc32(message)
 to_enc_icv = struct.pack('<L', icv)
 
 # msg + icv
@@ -62,8 +60,7 @@ icv_num = struct.unpack('!L', icv_num)[0]
 #forging the packet
 arp.wepdata = encrypted[:-4]
 arp.icv = icv_num
-print("len(arp) = ", len(arp))
-print("arp len = ", arp.len)
+arp[RadioTap].len = None
 
 
 
@@ -74,5 +71,5 @@ wrpcap(file, arp)
 print("Output stored in ./" + file)
 
 #sending the packet
-sendp(arp, iface=interface)
+#sendp(arp, iface=interface)
 print("Manually encrypted packet send.")
